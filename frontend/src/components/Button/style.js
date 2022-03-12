@@ -34,6 +34,17 @@ export default styled.button`
         background-color: transparent;
       }
     }
+    &.danger {
+      background-color: ${({ theme }) => theme.colors.danger};
+      border-color: ${({ theme }) => theme.colors.danger};
+      color: white;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        color: ${({ theme }) => theme.colors.danger};
+        background-color: transparent;
+      }
+    }
   }
 
   &.border {

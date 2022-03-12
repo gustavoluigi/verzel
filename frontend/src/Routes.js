@@ -27,7 +27,7 @@ function Routes() {
       <Route path="/dashboard/modulos/editar/:id" component={EditModule} />
       <Route path="/dashboard/aulas" exact component={ListClasses} />
       <Route path="/dashboard/aulas/criar" component={NewClass} />
-      <Route path="/dashboard/aulas/editar/:id" component={EditClass} />
+      <Route path="/dashboard/aulas/editar" component={EditClass} />
     </Switch>
   );
 }
