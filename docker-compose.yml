@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: verzeldb_pass
+      POSTGRES_USER: verzeldb_user
+      POSTGRES_DB: verzeldb_database
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  
+  backend:
+    container_name: verzel_backend
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: './backend'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - PGUSER=verzeldb_user
+      - PGPASSWORD=verzeldb_pass
+      - PGDATABASE=verzeldb_database
+      - PGHOST=db
+    depends_on: 
+      - db
+    ports:
+      - '3000:3000'
+
+  frontend:
+    container_name: verzel_frontend
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+      - backend
+    ports:
+    - '8000:8000'
