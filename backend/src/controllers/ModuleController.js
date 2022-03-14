@@ -1,9 +1,21 @@
 /* eslint-disable camelcase */
+const Class = require('../models/Class');
 const Module = require('../models/Module');
 
 module.exports = {
   async index(req, res) {
-    const modules = await Module.findAll({ include: { association: 'classes' } });
+    const modules = await Module.findAll({
+      include: [
+        {
+          model: Class,
+          as: 'classes',
+        },
+      ],
+      order: [
+        ['name', 'ASC'],
+        [{ model: Class, as: 'classes' }, 'name', 'ASC'],
+      ],
+    });
 
     return res.json(modules);
   },

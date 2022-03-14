@@ -5,7 +5,16 @@ const Module = require('../models/Module');
 module.exports = {
   async index(req, res) {
     const classes = await Class.findAll({
-      include: { association: 'module' },
+      include: [
+        {
+          model: Module,
+          as: 'module',
+        },
+      ],
+      order: [
+        ['name', 'ASC'],
+        [{ model: Module, as: 'module' }, 'name', 'ASC'],
+      ],
     });
 
     return res.json(classes);
@@ -14,7 +23,16 @@ module.exports = {
   async show(req, res) {
     const { class_id } = req.params;
     const classes = await Class.findByPk(class_id, {
-      include: { association: 'module' },
+      include: [
+        {
+          model: Module,
+          as: 'module',
+        },
+      ],
+      order: [
+        ['name', 'ASC'],
+        [{ model: Module, as: 'module' }, 'name', 'ASC'],
+      ],
     });
 
     if (!classes) {
@@ -27,21 +45,28 @@ module.exports = {
   async moduleClasses(req, res) {
     const { module_id } = req.params;
 
-    const module = await Module.findByPk(module_id);
+    const module = await Module.findByPk(module_id, {
+      include: [
+        {
+          model: Class,
+          as: 'classes',
+        },
+      ],
+      order: [
+        ['name', 'ASC'],
+        [{ model: Class, as: 'classes' }, 'name', 'ASC'],
+      ],
+    });
 
     if (!module) {
       return res.status(400).json('Módulo não encontrado');
     }
 
-    const classes = await Module.findByPk(module_id, {
-      include: { association: 'classes' },
-    });
-
-    if (!classes.classes.length) {
+    if (!module.classes.length) {
       return res.status(400).json('Nenhuma aula encontrada para este módulo.');
     }
 
-    return res.json(classes);
+    return res.json(module);
   },
 
   async store(req, res) {
