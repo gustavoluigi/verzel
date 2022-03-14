@@ -1,17 +1,27 @@
 import { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import Button from '../Button';
 import FormGroup from '../FormGroup';
 import Input from '../Input';
+import ErrorMessage from '../ErrorMessage';
 import isEmailValid from '../../utils/isEmailValid';
 import { ButtonContainer, Form } from './styles';
+import api from '../../services/api';
 
 function RegisterForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   function handleNameChange(event) {
+    console.log(errors);
+    setErrors((prevState) => prevState.filter(
+      (error) => error.field !== 'name',
+    ));
     setName(event.target.value);
     if (!event.target.value) {
       setErrors((prevState) => [
@@ -20,13 +30,14 @@ function RegisterForm() {
       ]);
     } else {
       setErrors((prevState) => prevState.filter(
-        (error) => error.field !== 'email',
+        (error) => error.field !== 'name',
       ));
     }
   }
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
+    setErrorMessage('');
 
     setErrors((prevState) => prevState.filter(
       (error) => error.field !== 'email',
@@ -58,43 +69,71 @@ function RegisterForm() {
 
   // console.log(errors);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
+    setLoading(true);
     e.preventDefault();
+    await api.post('/users', {
+      name,
+      email,
+      password,
+    }).then((res) => {
+      // console.log(res);
+      setLoading(false);
+      setRedirect(true);
+    }).catch((err) => {
+      // console.log(err.response.data);
+      setErrorMessage(err.response.data);
+    });
   }
+
+  const redirectToLoginPage = redirect && (
+    <Redirect to="/login" />
+  );
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormGroup label="Nome" id="name" error={getErrorMessagebyFieldName('name')}>
-        <Input
-          value={name}
-          type="text"
-          id="name"
-          onChange={handleNameChange}
-          error={getErrorMessagebyFieldName('name')}
-        />
-      </FormGroup>
-      <FormGroup label="E-mail" id="email" error={getErrorMessagebyFieldName('email')}>
-        <Input
-          value={email}
-          type="email"
-          id="email"
-          onChange={handleEmailChange}
-          error={getErrorMessagebyFieldName('email')}
-        />
-      </FormGroup>
-      <FormGroup label="Senha" id="password">
-        <Input
-          value={password}
-          type="password"
-          id="password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </FormGroup>
-      <ButtonContainer>
-        <Button className="full green" type="submit">
-          Cadastrar
-        </Button>
-      </ButtonContainer>
-    </Form>
+    <>
+      {redirectToLoginPage}
+
+      {errorMessage && (
+      <ErrorMessage>
+        {errorMessage}
+      </ErrorMessage>
+
+      )}
+      <Form onSubmit={handleSubmit}>
+        <FormGroup label="Nome" id="name" error={getErrorMessagebyFieldName('name')}>
+          <Input
+            value={name}
+            type="text"
+            id="name"
+            onChange={handleNameChange}
+            error={getErrorMessagebyFieldName('name')}
+          />
+        </FormGroup>
+        <FormGroup label="E-mail" id="email" error={getErrorMessagebyFieldName('email')}>
+          <Input
+            value={email}
+            type="email"
+            id="email"
+            onChange={handleEmailChange}
+            error={getErrorMessagebyFieldName('email')}
+          />
+        </FormGroup>
+        <FormGroup label="Senha" id="password">
+          <Input
+            value={password}
+            type="password"
+            id="password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </FormGroup>
+        <ButtonContainer>
+          <Button className="full green" type="submit">
+            Cadastrar
+          </Button>
+        </ButtonContainer>
+      </Form>
+    </>
   );
 }
 

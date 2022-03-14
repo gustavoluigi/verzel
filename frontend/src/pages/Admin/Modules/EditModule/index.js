@@ -7,12 +7,14 @@ import Button from '../../../../components/Button';
 import FormGroup from '../../../../components/FormGroup';
 import Input from '../../../../components/Input';
 import api from '../../../../services/api';
+import ErrorMessage from '../../../../components/ErrorMessage';
 
 function EditModule() {
   const { id } = useParams();
   const [module, setModule] = useState();
   const [name, setName] = useState('');
   const [errors, setErrors] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   async function getModule() {
     await api.get(`/modules/${id}`).then((res) => {
@@ -22,6 +24,7 @@ function EditModule() {
   }
 
   function handleNameChange(event) {
+    setErrors((prevState) => prevState.filter((error) => error.field !== 'name'));
     setName(event.target.value);
     if (!event.target.value) {
       setErrors((prevState) => [
@@ -29,7 +32,7 @@ function EditModule() {
         { field: 'name', message: 'Nome é obrigatório' },
       ]);
     } else {
-      setErrors((prevState) => prevState.filter((error) => error.field !== 'email'));
+      setErrors((prevState) => prevState.filter((error) => error.field !== 'name'));
     }
   }
 
@@ -46,6 +49,8 @@ function EditModule() {
       setModule(res.data);
       setName(res.data.name);
       getModule();
+    }).catch((err) => {
+      setErrorMessage(err.response.data);
     });
   }
 
@@ -63,6 +68,11 @@ function EditModule() {
         <h1>Edição de módulo</h1>
         <p>Edite o campo abaixo</p>
         <Form onSubmit={handleSubmit}>
+          {errorMessage && (
+          <ErrorMessage>
+            {errorMessage}
+          </ErrorMessage>
+          )}
           <FormGroup
             label="Nome"
             id="name"

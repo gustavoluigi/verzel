@@ -47,11 +47,18 @@ module.exports = {
 
   async edit(req, res) {
     const { module_id } = req.params;
+    const { name } = req.body;
 
     const module = await Module.findByPk(module_id);
 
     if (!module) {
       return res.status(400).json('Módulo não encontrado.');
+    }
+
+    const moduleExists = await Module.findOne({ where: { name } });
+
+    if (moduleExists) {
+      return res.status(409).json('Já existe um módulo com este nome, por favor, tente novamente usando um novo nome.');
     }
 
     module.update(req.body);
