@@ -3,7 +3,7 @@ const Module = require('../models/Module');
 
 module.exports = {
   async index(req, res) {
-    const modules = await Module.findAll();
+    const modules = await Module.findAll({ include: { association: 'classes' } });
 
     return res.json(modules);
   },

@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import Button from '../Button';
 import { Container } from './styles';
 
-function ClassCard() {
+function ClassCard({ item }) {
   return (
     <Container>
-      <h3>Aula 01</h3>
+      <h3>{item.name}</h3>
       <svg
         width="14"
         height="13"
@@ -45,7 +46,7 @@ function ClassCard() {
         />
       </svg>
       <p className="date">
-        10/03/2022
+        {item.date}
       </p>
       <Button to="/" className="full purple">
         Assitir a aula
@@ -55,3 +56,7 @@ function ClassCard() {
 }
 
 export default ClassCard;
+
+ClassCard.propTypes = {
+  item: PropTypes.node.isRequired,
+};

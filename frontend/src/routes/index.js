@@ -7,5 +7,5 @@ export default function Routes() {
   const { loading, authenticated } = useAuth();
 
   // return authenticated ? <PrivateRoutes /> : <PublicRoutes />;
-  return <PrivateRoutes />;
+  return <PublicRoutes />;
 }

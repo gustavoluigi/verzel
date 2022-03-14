@@ -1,8 +1,22 @@
+import { useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import ModuleList from '../../components/ModuleList';
 import { Container, Text, Wrapper } from './styles';
+import api from '../../services/api';
 
 function ModulesHome() {
+  const [modules, setModules] = useState([]);
+
+  async function getModules() {
+    setModules([]);
+    await api.get('/modules').then((res) => {
+      setModules(res.data);
+    });
+  }
+
+  useEffect(() => {
+    getModules();
+  }, []);
   return (
     <Container>
       <Wrapper>
@@ -16,7 +30,7 @@ function ModulesHome() {
             <strong> O que está esperando?</strong>
           </p>
         </Text>
-        <ModuleList direction="row" />
+        <ModuleList direction="row" list={modules} />
         <Button type="link" href="/modulos" className="full purple">
           Veja todos os módulos
         </Button>
