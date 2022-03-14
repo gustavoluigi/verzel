@@ -1,14 +1,17 @@
-import { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import { useContext, useState } from 'react';
 import Button from '../Button';
 import FormGroup from '../FormGroup';
 import Input from '../Input';
 import isEmailValid from '../../utils/isEmailValid';
 import { ButtonContainer, Form } from './styles';
+import useAuth from '../../context/hooks/useAuth';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const { handleLogin } = useAuth();
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
@@ -41,10 +44,9 @@ function LoginForm() {
     return errors.find((error) => error.field === fieldName)?.message;
   }
 
-  // console.log(errors);
-
   function handleSubmit(e) {
     e.preventDefault();
+    handleLogin({ email, password });
   }
   return (
     <Form onSubmit={handleSubmit}>
@@ -75,3 +77,11 @@ function LoginForm() {
 }
 
 export default LoginForm;
+
+// LoginForm.propTypes = {
+//   handleLogin: PropTypes.func,
+// };
+
+// LoginForm.defaultProps = {
+//   handleLogin: null,
+// };

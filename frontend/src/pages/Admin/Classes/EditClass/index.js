@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import PageAdminTitle from '../../../../components/PageAdminTitle';
 import { ReactComponent as ClassesIcon } from '../../../../assets/images/admin/class-nav.svg';
 import { ButtonContainer, Container, Form } from './styles';
@@ -7,12 +8,34 @@ import Button from '../../../../components/Button';
 import FormGroup from '../../../../components/FormGroup';
 import Input from '../../../../components/Input';
 import Select from '../../../../components/Select';
+import api from '../../../../services/api';
 
 function EditClass() {
+  const { id } = useParams();
   const [name, setName] = useState('');
+  const [modules, setModules] = useState('');
   const [module, setModule] = useState('');
   const [date, setDate] = useState('');
   const [errors, setErrors] = useState([]);
+
+  async function getModules() {
+    await api.get('/modules').then((res) => {
+      setModules(res.data);
+    });
+  }
+
+  async function getClass() {
+    await api.get(`/classes/${id}`).then((res) => {
+      setModule(res.data.module.id);
+      setName(res.data.name);
+      setDate(res.data.date);
+    });
+  }
+
+  useEffect(() => {
+    getClass();
+    getModules();
+  }, []);
 
   function handleNameChange(event) {
     setName(event.target.value);
@@ -30,8 +53,19 @@ function EditClass() {
     return errors.find((error) => error.field === fieldName)?.message;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    await api.put(`/modules/${module}/classes/${id}`, {
+      name,
+      id_module: module,
+      date,
+    }).then((res) => {
+      setModule(res.data);
+      setName(res.data.name);
+      getClass();
+    });
+    // console.log(lesson);
   }
 
   return (
@@ -63,12 +97,32 @@ function EditClass() {
             error={getErrorMessagebyFieldName('module')}
           >
             <Select
-              value={name}
+              value={module}
               id="module"
-              // onChange={handleNameChange}
+              onChange={(event) => setModule(event.target.value)}
               error={getErrorMessagebyFieldName('module')}
             >
-              <option value="modulo1">Módulo 1</option>
+              {modules
+                && modules.map((item) => (
+                  <option value={item.id} key={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              {/* {modules
+                && modules.map((item) => {
+                  if (module === item.name) {
+                    return (
+                      <option value={item.id} key={item.id} selected>
+                        {item.name}
+                      </option>
+                    );
+                  }
+                  return (
+                    <option value={item.id} key={item.id}>
+                      {item.name}
+                    </option>
+                  );
+                })} */}
             </Select>
           </FormGroup>
           <FormGroup
@@ -77,10 +131,10 @@ function EditClass() {
             error={getErrorMessagebyFieldName('date')}
           >
             <Input
-              value={name}
+              value={date}
               type="date"
               id="date"
-              onChange={handleNameChange}
+              onChange={(event) => setDate(event.target.value)}
               error={getErrorMessagebyFieldName('date')}
             />
           </FormGroup>

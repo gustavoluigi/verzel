@@ -17,7 +17,7 @@ function ModulesHome() {
           </p>
         </Text>
         <ModuleList direction="row" />
-        <Button href="/modulos" className="full purple">
+        <Button type="link" href="/modulos" className="full purple">
           Veja todos os módulos
         </Button>
       </Wrapper>

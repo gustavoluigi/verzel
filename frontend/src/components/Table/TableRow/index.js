@@ -4,21 +4,19 @@ import { ReactComponent as DeleteIcon } from '../../../assets/images/utils/delet
 import { Actions, Container } from './styles';
 
 function TableRow({ item, handleEdit, handleDelete }) {
-  // const result = Object.keys(item).map((key) => [String(key), item[key]]);
-  // console.log();
-  // Object.entries(item).map((i) => console.log(i.id));
   return (
     <Container>
-      {Object.entries(item).map(([, value]) => (
-        <p>{value}</p>
+      {Object.entries(item).map(([key, value]) => (
+        <p key={key}>{value}</p>
       ))}
-
-      {/* <p>{item.id}</p>
-      <p>{item.name}</p> */}
       <Actions>
         <EditIcon onClick={() => handleEdit(item.id)} />
         <DeleteIcon
-          onClick={() => handleDelete({ id: item.id, name: item.name })}
+          // onClick={() => handleDelete({ id: item.id, name: item.name })}
+          // onClick={() => handleDelete(Object.entries(item).map(([name, valor]) => (
+          //   { key: name, value: valor }
+          // )))}
+          onClick={() => handleDelete(item)}
         />
       </Actions>
     </Container>

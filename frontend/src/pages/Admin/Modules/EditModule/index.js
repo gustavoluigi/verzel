@@ -1,14 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import PageAdminTitle from '../../../../components/PageAdminTitle';
 import { ReactComponent as ModulesIcon } from '../../../../assets/images/admin/modules-nav.svg';
 import { ButtonContainer, Container, Form } from './styles';
 import Button from '../../../../components/Button';
 import FormGroup from '../../../../components/FormGroup';
 import Input from '../../../../components/Input';
+import api from '../../../../services/api';
 
 function EditModule() {
+  const { id } = useParams();
+  const [module, setModule] = useState();
   const [name, setName] = useState('');
   const [errors, setErrors] = useState([]);
+
+  async function getModule() {
+    await api.get(`/modules/${id}`).then((res) => {
+      setModule(res.data);
+      setName(res.data.name);
+    });
+  }
 
   function handleNameChange(event) {
     setName(event.target.value);
@@ -26,9 +37,21 @@ function EditModule() {
     return errors.find((error) => error.field === fieldName)?.message;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    // console.log('*** FormData ***', e.target.value);
+    await api.put(`/modules/${id}`, {
+      name,
+    }).then((res) => {
+      setModule(res.data);
+      setName(res.data.name);
+      getModule();
+    });
   }
+
+  useEffect(() => {
+    getModule();
+  }, []);
 
   return (
     <>
@@ -56,7 +79,7 @@ function EditModule() {
 
           <ButtonContainer>
             <Button className="full green" type="submit">
-              Cadastrar
+              Salvar alterações
             </Button>
           </ButtonContainer>
         </Form>

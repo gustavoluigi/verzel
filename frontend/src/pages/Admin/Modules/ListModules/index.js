@@ -1,21 +1,35 @@
 import { Link, Redirect } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageAdminTitle from '../../../../components/PageAdminTitle';
 import { ReactComponent as ModulesIcon } from '../../../../assets/images/admin/modules-nav.svg';
 import CardCreate from '../../../../components/CardCreate';
 import Table from '../../../../components/Table';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
+import api from '../../../../services/api';
 
 function ListModules() {
+  const [modules, setModules] = useState([]);
   const [redirect, setRedirect] = useState({ id: 0, state: false });
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({});
   const tableHead = ['ID', 'Nome do Módulo', 'Ações'];
-  const tableRows = [
-    { id: 1, name: 'Módulo 1' },
-    { id: 2, name: 'Módulo 2' },
-  ];
+
+  async function getModules() {
+    setModules([]);
+    await api.get('/modules').then((res) => {
+      res.data.forEach((element) => {
+        setModules((prevState) => [
+          ...prevState,
+          { id: element.id, name: element.name },
+        ]);
+      });
+    });
+  }
+
+  useEffect(() => {
+    getModules();
+  }, []);
 
   const redirectToEditPage = redirect.state && (
     <Redirect
@@ -23,8 +37,11 @@ function ListModules() {
     />
   );
 
-  function handleDelete() {
-    setShowModal(false);
+  async function handleDelete() {
+    await api.delete(`modules/${modalContent.id}`).then(() => {
+      setShowModal(false);
+      getModules();
+    });
   }
 
   function handleClickDelete(data) {
@@ -63,7 +80,7 @@ function ListModules() {
       </Link>
       <Table
         tableHead={tableHead}
-        tableRows={tableRows}
+        tableRows={modules}
         handleDelete={handleClickDelete}
         handleEdit={handleClickEdit}
       />

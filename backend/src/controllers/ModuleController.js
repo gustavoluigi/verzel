@@ -1,8 +1,20 @@
+/* eslint-disable camelcase */
 const Module = require('../models/Module');
 
 module.exports = {
   async index(req, res) {
     const modules = await Module.findAll();
+
+    return res.json(modules);
+  },
+
+  async show(req, res) {
+    const { module_id } = req.params;
+    const modules = await Module.findByPk(module_id);
+
+    if (!modules) {
+      return res.status(400).json('Módulo não encontrado.');
+    }
 
     return res.json(modules);
   },
@@ -22,9 +34,9 @@ module.exports = {
   },
 
   async edit(req, res) {
-    const { id } = req.params;
+    const { module_id } = req.params;
 
-    const module = await Module.findByPk(id);
+    const module = await Module.findByPk(module_id);
 
     if (!module) {
       return res.status(400).json('Módulo não encontrado.');
@@ -32,13 +44,13 @@ module.exports = {
 
     module.update(req.body);
 
-    return res.sendStatus(200).json(module);
+    return res.status(200).json(module);
   },
 
   async delete(req, res) {
-    const { id } = req.params;
+    const { module_id } = req.params;
 
-    const module = await Module.findByPk(id);
+    const module = await Module.findByPk(module_id);
 
     if (!module) {
       return res.status(400).json('Módulo não encontrado.');

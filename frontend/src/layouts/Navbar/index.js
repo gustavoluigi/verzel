@@ -11,10 +11,10 @@ function Navbar() {
         <img src={logo} alt="Verzel" />
       </Link>
       <div className="buttons">
-        <Button href="/cadastro" className="border purple">
+        <Button type="link" href="/cadastro" className="border purple">
           Cadastro
         </Button>
-        <Button href="/login" className="full purple">
+        <Button type="link" href="/login" className="full purple">
           Login
         </Button>
       </div>

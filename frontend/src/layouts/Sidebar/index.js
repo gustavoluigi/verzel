@@ -5,10 +5,18 @@ import logo from '../../assets/images/admin/logo-nav.svg';
 import { ReactComponent as DashboardIcon } from '../../assets/images/admin/dashboard-nav.svg';
 import { ReactComponent as ModulesIcon } from '../../assets/images/admin/modules-nav.svg';
 import { ReactComponent as ClassIcon } from '../../assets/images/admin/class-nav.svg';
+import { ReactComponent as LogoutIcon } from '../../assets/images/admin/logout.svg';
+import useAuth from '../../context/hooks/useAuth';
+
 // import Button from '../../components/Button';
 
 function Sidebar() {
   const [page, setPage] = useState('/dashboard');
+  const { handleLogout: Logout } = useAuth();
+
+  async function handleLogout() {
+    Logout();
+  }
 
   return (
     <Container>
@@ -43,6 +51,9 @@ function Sidebar() {
           </Item>
         </Link>
       </List>
+      <button className="logout" type="button" onClick={handleLogout}>
+        <LogoutIcon />
+      </button>
     </Container>
   );
 }

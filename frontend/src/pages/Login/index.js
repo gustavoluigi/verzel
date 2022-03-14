@@ -1,10 +1,11 @@
 import { Container, Text } from './styles';
-
+// import { useAuth } from '../../context/auth';
 import login from '../../assets/images/login.svg';
 import LoginForm from '../../components/LoginForm';
 // import Loader from '../../components/Loader';
 
 function Login() {
+  // handleLogin();
   return (
     <>
       {/* <Loader /> */}

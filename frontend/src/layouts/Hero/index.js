@@ -21,7 +21,7 @@ function Hero() {
           <br />
           muito profissionalismo.
         </p>
-        <Button href="/cadastro" className="full purple">
+        <Button type="link" href="/cadastro" className="full purple">
           Cadastre-se agora
         </Button>
       </Text>

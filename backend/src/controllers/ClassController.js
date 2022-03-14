@@ -4,7 +4,22 @@ const Module = require('../models/Module');
 
 module.exports = {
   async index(req, res) {
-    const classes = await Class.findAll();
+    const classes = await Class.findAll({
+      include: { association: 'module' },
+    });
+
+    return res.json(classes);
+  },
+
+  async show(req, res) {
+    const { class_id } = req.params;
+    const classes = await Class.findByPk(class_id, {
+      include: { association: 'module' },
+    });
+
+    if (!classes) {
+      return res.status(400).json('Aula não encontrado.');
+    }
 
     return res.json(classes);
   },
@@ -40,9 +55,9 @@ module.exports = {
   },
 
   async edit(req, res) {
-    const { id } = req.params;
+    const { class_id } = req.params;
 
-    const lesson = await Class.findByPk(id);
+    const lesson = await Class.findByPk(class_id);
 
     if (!lesson) {
       return res.status(400).json('Aula não encontrada.');

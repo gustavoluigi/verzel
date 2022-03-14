@@ -15,6 +15,19 @@ export const Container = styled.div`
     height: auto;
     padding: 1rem;
   }
+
+  .logout {
+    border: 0;
+    background: transparent;
+    margin-top: auto;
+    margin-bottom: 2rem;
+    filter: grayscale(1);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      filter: grayscale(0);
+    }
+  }
 `;
 
 export const List = styled.ul`
@@ -29,12 +42,12 @@ export const Item = styled.li`
   justify-content: center;
   align-items: center;
   position: relative;
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
   cursor: pointer;
   padding: 1rem;
 
   &:before {
-    content: '';
+    content: "";
     background-color: ${({ theme }) => theme.colors.secondary.main};
     position: absolute;
     height: 100%;
@@ -44,12 +57,12 @@ export const Item = styled.li`
     left: 0;
     top: 0;
     bottom: 0;
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
     opacity: ${({ active }) => (active ? '1' : '0')};
   }
 
   svg {
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
     filter: ${({ active }) => (active ? 'grayscale(0)' : 'grayscale(1)')};
   }
 

@@ -16,10 +16,12 @@ routes.post('/users', UserController.store);
 
 routes.get('/modules', ModuleController.index);
 routes.post('/modules', ModuleController.store);
+routes.get('/modules/:module_id', ModuleController.show);
 routes.put('/modules/:module_id', ModuleController.edit);
 routes.delete('/modules/:module_id', ModuleController.delete);
 
 routes.get('/classes', ClassController.index);
+routes.get('/classes/:class_id', ClassController.show);
 routes.get('/modules/:module_id/classes', ClassController.moduleClasses);
 routes.post('/modules/:module_id/classes', ClassController.store);
 routes.put('/modules/:module_id/classes/:class_id', ClassController.edit);

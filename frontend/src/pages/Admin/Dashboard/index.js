@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { ReactComponent as DashboardIcon } from '../../../assets/images/admin/dashboard-nav.svg';
 import { ReactComponent as ModulesIcon } from '../../../assets/images/admin/modules-nav.svg';
 import { ReactComponent as ClassesIcon } from '../../../assets/images/admin/class-nav.svg';
+import api from '../../../services/api';
 
 import PageAdminTitle from '../../../components/PageAdminTitle';
 import {
@@ -10,6 +12,26 @@ import {
 import CardCreate from '../../../components/CardCreate';
 
 function Dashboard() {
+  const [modules, setModules] = useState([]);
+  const [classes, setClasses] = useState([]);
+
+  async function getModules() {
+    await api.get('/modules').then((res) => {
+      setModules(res.data);
+    });
+  }
+
+  async function getClasses() {
+    await api.get('/classes').then((res) => {
+      setClasses(res.data);
+    });
+  }
+
+  useEffect(() => {
+    getModules();
+    getClasses();
+  }, []);
+
   return (
     <>
       <PageAdminTitle>
@@ -25,7 +47,7 @@ function Dashboard() {
               </div>
               <p>
                 Total de módulos:
-                <strong>4</strong>
+                <strong>{modules.length}</strong>
               </p>
             </TotalItem>
             <TotalItem>
@@ -34,7 +56,7 @@ function Dashboard() {
               </div>
               <p>
                 Total de aulas:
-                <strong>4</strong>
+                <strong>{classes.length}</strong>
               </p>
             </TotalItem>
           </Row>
