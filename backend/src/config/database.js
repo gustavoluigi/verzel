@@ -10,3 +10,12 @@ module.exports = {
     underscored: true,
   },
 };
+
+// module.exports = {
+//   dialect: 'sqlite',
+//   storage: '../database/db.sqlite',
+//   define: {
+//     timestamps: true,
+//     underscored: true,
+//   },
+// };
