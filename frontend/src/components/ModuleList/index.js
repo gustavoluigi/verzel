@@ -18,7 +18,7 @@ export default ModuleList;
 ModuleList.propTypes = {
   direction: PropTypes.string.isRequired,
   list: PropTypes.node.isRequired,
-  func: PropTypes.node,
+  func: PropTypes.func,
 };
 
 ModuleList.defaultProps = {

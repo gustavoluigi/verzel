@@ -1,22 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
 import {
-  // Redirect,
+  Redirect,
   Route,
 } from 'react-router-dom';
-import Loader from '../components/Loader';
-import { AuthContext } from '../context/authContext';
+import useAuth from '../context/hooks/useAuth';
 
 export default function CustomRoute({ isPrivate, ...rest }) {
-  const { loading, authenticated } = useContext(AuthContext);
-
-  if (loading) {
-    return <Loader />;
-  }
+  const { authenticated } = useAuth();
 
   if (isPrivate && !authenticated) {
-    // return <Redirect to="/login" />;
+    return <Redirect push to="/login" />;
   }
 
   return <Route {...rest} />;

@@ -1,4 +1,4 @@
-import { Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CustomRoute from './CustomRoute';
 
 import PublicRoutes from '../layouts/PublicRoutes';
@@ -12,10 +12,10 @@ function Routes() {
   return (
     <PublicRoutes>
       <Switch>
-        <CustomRoute path="/" exact component={Home} />
-        <CustomRoute path="/modulos" exact component={Modules} />
-        <CustomRoute path="/login" exact component={Login} />
-        <CustomRoute path="/cadastro" exact component={Register} />
+        <Route path="/" exact component={Home} />
+        <Route path="/modulos" exact component={Modules} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/cadastro" exact component={Register} />
       </Switch>
     </PublicRoutes>
   );

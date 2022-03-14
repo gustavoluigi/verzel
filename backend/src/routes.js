@@ -11,7 +11,8 @@ const routes = express.Router();
 
 routes.post('/auth', AuthController.authenticate);
 
-routes.get('/users', authMiddleware.authMiddleware, UserController.index);
+// routes.get('/users', authMiddleware.authMiddleware, UserController.index);
+routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
 
 routes.get('/modules', ModuleController.index);

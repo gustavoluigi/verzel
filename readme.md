@@ -77,6 +77,11 @@ Após esse processo, o backend da aplicação estará rodando na segunte url:
 A aplicação
 
 ***
+## Documentação da API
+
+- [Documentação](https://github.com/gustavoluigi/verzel/tree/main/backend)
+
+***
 ## Funcionalidades
 
 - [x]  Homepage pública e painel administrtivo privado

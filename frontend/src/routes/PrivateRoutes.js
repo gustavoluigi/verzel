@@ -1,4 +1,4 @@
-import { Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CustomRoute from './CustomRoute';
 
 import PrivateRoutes from '../layouts/PrivateRoutes';
@@ -15,13 +15,13 @@ function Routes() {
   return (
     <PrivateRoutes>
       <Switch>
-        <CustomRoute isPrivate path="/dashboard" exact component={Dashboard} />
-        <CustomRoute isPrivate path="/dashboard/modulos" exact component={ListModules} />
-        <CustomRoute isPrivate path="/dashboard/modulos/criar" component={NewModule} />
-        <CustomRoute isPrivate path="/dashboard/modulos/editar/:id" component={EditModule} />
-        <CustomRoute isPrivate path="/dashboard/aulas" exact component={ListClasses} />
-        <CustomRoute isPrivate path="/dashboard/aulas/criar" component={NewClass} />
-        <CustomRoute isPrivate path="/dashboard/aulas/editar/:id" component={EditClass} />
+        <Route isPrivate path="/dashboard" exact component={Dashboard} />
+        <Route isPrivate path="/dashboard/modulos" exact component={ListModules} />
+        <Route isPrivate path="/dashboard/modulos/criar" component={NewModule} />
+        <Route isPrivate path="/dashboard/modulos/editar/:id" component={EditModule} />
+        <Route isPrivate path="/dashboard/aulas" exact component={ListClasses} />
+        <Route isPrivate path="/dashboard/aulas/criar" component={NewClass} />
+        <Route isPrivate path="/dashboard/aulas/editar/:id" component={EditClass} />
       </Switch>
     </PrivateRoutes>
   );

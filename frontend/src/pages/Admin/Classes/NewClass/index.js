@@ -101,14 +101,13 @@ function NewClass() {
             error={getErrorMessagebyFieldName('module')}
           >
             <Select
-              value={module}
+              value=""
               id="module"
               onChange={(event) => setModule(event.target.value)}
               error={getErrorMessagebyFieldName('module')}
             >
-              <option selected disabled>Selecione um módulo</option>
               {moduleList && moduleList.map((el) => (
-                <option value={el.id}>{el.name}</option>
+                <option key={el.id} value={el.id}>{el.name}</option>
               ))}
             </Select>
           </FormGroup>

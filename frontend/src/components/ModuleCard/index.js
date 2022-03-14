@@ -45,7 +45,7 @@ export default ModuleCard;
 
 ModuleCard.propTypes = {
   item: PropTypes.node.isRequired,
-  func: PropTypes.node,
+  func: PropTypes.func,
 };
 
 ModuleCard.defaultProps = {

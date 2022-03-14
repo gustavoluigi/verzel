@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
+import history from '../../services/history';
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
-  const history = useHistory();
+  const [redirectToDashboard, setRedirectToDashboard] = useState(false);
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,14 +29,16 @@ export default function useAuth() {
     localStorage.setItem('token', JSON.stringify(token));
     api.defaults.headers.Authorization = `Bearer ${token}`;
     setAuthenticated(true);
-    history.push('/dashboard');
+    // history.push('/dashboard');
+    window.location = '/dashboard';
   }
 
   function handleLogout() {
     setAuthenticated(false);
     localStorage.removeItem('token');
     api.defaults.headers.Authorization = undefined;
-    history.push('/login');
+    // history.push('/login');
+    window.location = '/';
   }
 
   return {
