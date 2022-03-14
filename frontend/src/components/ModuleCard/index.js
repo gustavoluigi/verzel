@@ -44,7 +44,7 @@ function ModuleCard({ item, func }) {
 export default ModuleCard;
 
 ModuleCard.propTypes = {
-  item: PropTypes.node.isRequired,
+  item: PropTypes.objectOf(PropTypes.any).isRequired,
   func: PropTypes.func,
 };
 

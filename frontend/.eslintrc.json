@@ -27,6 +27,7 @@
       "react/jsx-no-bind": [
         1, {  "allowArrowFunctions": true,  "allowFunctions": true }
       ],
-      "no-unused-vars": "off"
+      "no-unused-vars": "off",
+      "react/forbid-prop-types": "off"
     }
 }
