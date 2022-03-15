@@ -72,9 +72,20 @@ Após esse processo, o backend da aplicação estará rodando na segunte url:
 - <https://localhost:3000>
 
 ***
+
 ## Primeiros passos
 
-A aplicação
+Após a aplicação iniciada, já temos um usuário registrado no banco com os seguintes dados:
+- E-mail: usuario@verzel.com.br
+- Senha: 1234
+
+Caso deseje cadastrar um novo usuário, basta navegar até a página de cadastro clicando no botão no topo direito da página.
+
+Após feito o login, será redirecionado para a Dashboard, que contém o total de aulas e de módulos cadastrados, e botões para a inserção de novos módulos e aulas.
+
+Ao lado esquerdo temos a barra de navegação do painel administrativo, contendo links para a Dashboard, Listagem de módulos e Listagem de aulas.
+
+Nas páginas de listagem é possível remover e editar o respectivo conteúdo, e também o cadastro de um novo registro.
 
 ***
 ## Documentação da API
