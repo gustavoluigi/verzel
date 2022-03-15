@@ -22,7 +22,7 @@ it('reders without crashing', () => {
   ReactDOM.render(
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
-        <MeduleList list={list} />
+        <MeduleList direction="row" list={list} />
       </BrowserRouter>
     </ThemeProvider>,
     div,

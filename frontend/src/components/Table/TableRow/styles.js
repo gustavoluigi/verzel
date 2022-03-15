@@ -35,6 +35,26 @@ export const Container = styled.div`
   > *:last-child {
     margin-left: auto;
   }
+
+  @media (max-width: 767.99px) {
+    flex-direction: column;
+
+    > * {
+      &:not(:last-child):not(:first-child) {
+        &:before {
+          display: none;
+        }
+      }
+
+      &:first-child {
+        display: none;
+      }
+    }
+
+    > *:last-child {
+      margin-right: auto;
+    }
+  }
 `;
 
 export const Actions = styled.div`

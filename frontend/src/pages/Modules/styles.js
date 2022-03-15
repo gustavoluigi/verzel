@@ -16,6 +16,8 @@ export const Wrapper = styled.div`
   align-items: flex-start;
   gap: 2rem;
 
+
+
   >* {
     &:first-child {
       flex: 0 0 250px ;
@@ -25,6 +27,18 @@ export const Wrapper = styled.div`
     }
   }
 
+  @media (max-width: 767.99px) {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+    >* {
+      &:first-child,
+      &:last-child {
+        flex: 1;
+      }
+    }
+  }
 `;
 
 export const ModuleListStyled = styled(ModuleList)`

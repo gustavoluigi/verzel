@@ -5,12 +5,14 @@ import Input from '../Input';
 import isEmailValid from '../../utils/isEmailValid';
 import { ButtonContainer, Form } from './styles';
 import useAuth from '../../context/hooks/useAuth';
+import ErrorMessage from '../ErrorMessage';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
   const { handleLogin } = useAuth();
+  const [errorMessage, setErrorMessage] = useState('');
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
@@ -37,33 +39,42 @@ function LoginForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleLogin({ email, password });
+    handleLogin({ email, password }).catch((err) => {
+      setErrorMessage(err.response.data);
+    });
   }
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormGroup label="E-mail" id="email" error={getErrorMessagebyFieldName('email')}>
-        <Input
-          value={email}
-          type="email"
-          id="email"
-          onChange={handleEmailChange}
-          error={getErrorMessagebyFieldName('email')}
-        />
-      </FormGroup>
-      <FormGroup label="Senha" id="password">
-        <Input
-          value={password}
-          type="password"
-          id="password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </FormGroup>
-      <ButtonContainer>
-        <Button className="full green" type="submit">
-          Acessar
-        </Button>
-      </ButtonContainer>
-    </Form>
+    <>
+      {errorMessage && (
+      <ErrorMessage>
+        {errorMessage}
+      </ErrorMessage>
+      )}
+      <Form onSubmit={handleSubmit}>
+        <FormGroup label="E-mail" id="email" error={getErrorMessagebyFieldName('email')}>
+          <Input
+            value={email}
+            type="email"
+            id="email"
+            onChange={handleEmailChange}
+            error={getErrorMessagebyFieldName('email')}
+          />
+        </FormGroup>
+        <FormGroup label="Senha" id="password">
+          <Input
+            value={password}
+            type="password"
+            id="password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </FormGroup>
+        <ButtonContainer>
+          <Button className="full green" type="submit">
+            Acessar
+          </Button>
+        </ButtonContainer>
+      </Form>
+    </>
   );
 }
 

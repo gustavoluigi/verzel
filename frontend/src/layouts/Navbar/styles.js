@@ -11,4 +11,9 @@ export const Container = styled.div`
     display: flex;
     gap: 1rem;
   }
+
+  @media (max-width: 767.99px) {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
 `;

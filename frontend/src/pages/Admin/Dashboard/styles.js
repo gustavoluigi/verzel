@@ -6,6 +6,10 @@ export const Container = styled.div`
 export const Row = styled.div`
   display: flex;
   gap: 1rem;
+
+  @media (max-width: 767.99px) {
+    flex-direction: column;
+  }
 `;
 export const Wrapper = styled.div`
   background-color: white;

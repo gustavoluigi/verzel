@@ -1,3 +1,4 @@
+import { parseISO, format } from 'date-fns';
 import PropTypes from 'prop-types';
 import Button from '../Button';
 import { ClassCardIcon } from '../Svg';
@@ -9,7 +10,7 @@ function ClassCard({ item }) {
       <h3>{item.name}</h3>
       <ClassCardIcon />
       <p className="date">
-        {item.date}
+        {format(parseISO(item.date), 'dd/MM/yyyy')}
       </p>
       <Button to="/" className="full purple">
         Assitir a aula

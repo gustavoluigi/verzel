@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import PageAdminTitle from '../../../../components/PageAdminTitle';
 import { ReactComponent as ModulesIcon } from '../../../../assets/images/admin/modules-nav.svg';
 import { ButtonContainer, Container, Form } from './styles';
@@ -15,6 +15,7 @@ function EditModule() {
   const [name, setName] = useState('');
   const [errors, setErrors] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   async function getModule() {
     await api.get(`/modules/${id}`).then((res) => {
@@ -48,7 +49,8 @@ function EditModule() {
     }).then((res) => {
       setModule(res.data);
       setName(res.data.name);
-      getModule();
+      // getModule();
+      setRedirect(true);
     }).catch((err) => {
       setErrorMessage(err.response.data);
     });
@@ -58,8 +60,13 @@ function EditModule() {
     getModule();
   }, []);
 
+  const redirectToListPage = redirect && (
+    <Redirect to="/dashboard/modulos" />
+  );
+
   return (
     <>
+      {redirectToListPage}
       <PageAdminTitle>
         <ModulesIcon />
         Módulos

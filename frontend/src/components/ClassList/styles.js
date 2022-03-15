@@ -7,6 +7,13 @@ export const Container = styled.div`
   margin-bottom: 2rem;
   flex-wrap: wrap;
 
+  @media (max-width: 767.99px) {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
   >p {
     display: table;
     margin-left: auto;

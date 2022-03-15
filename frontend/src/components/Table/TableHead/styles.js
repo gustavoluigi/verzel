@@ -10,6 +10,10 @@ export const Container = styled.div`
   color: white;
   font-weight: 600;
 
+  @media (max-width: 767.99px) {
+    display: none;
+  }
+
   > * {
     position: relative;
     &:not(:last-child):not(:first-child) {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import PageAdminTitle from '../../../../components/PageAdminTitle';
 import { ReactComponent as ClassesIcon } from '../../../../assets/images/admin/class-nav.svg';
 import { ButtonContainer, Container, Form } from './styles';
@@ -16,6 +16,7 @@ function EditClass() {
   const [module, setModule] = useState('');
   const [date, setDate] = useState('');
   const [errors, setErrors] = useState([]);
+  const [redirect, setRedirect] = useState(false);
 
   async function getModules() {
     await api.get('/modules').then((res) => {
@@ -66,13 +67,17 @@ function EditClass() {
     }).then((res) => {
       setModule(res.data);
       setName(res.data.name);
-      getClass();
+      setRedirect(true);
     });
-    // console.log(lesson);
   }
+
+  const redirectToListPage = redirect && (
+    <Redirect to="/dashboard/aulas" />
+  );
 
   return (
     <>
+      {redirectToListPage}
       <PageAdminTitle>
         <ClassesIcon />
         Aulas

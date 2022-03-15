@@ -39,6 +39,12 @@ export const Container = styled.div`
   h1 {
     margin-top: 1rem;
     margin-bottom: 2rem;
+
+    +small {
+      margin-top: -1rem;
+      margin-bottom: 2rem;
+      display: block;
+    }
   }
 
 

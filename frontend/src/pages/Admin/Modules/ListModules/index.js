@@ -54,6 +54,7 @@ function ListModules() {
       <Modal isOpen={showModal} onClickClose={() => setShowModal(false)}>
         <p>Tem certeza que deseja deletar o módulo:</p>
         <h1>{ modalContent.name }</h1>
+        <small>Todas as aulas deste módulo serão apagadas!</small>
         <Button type="button" onClick={handleDelete} className="full danger">
           Deletar
         </Button>

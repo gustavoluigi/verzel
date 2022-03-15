@@ -16,7 +16,7 @@ module.exports = {
         references: { model: 'modules', key: 'id' },
         allowNull: false,
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
       },
       date: {
         type: Sequelize.STRING,
