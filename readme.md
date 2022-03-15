@@ -100,3 +100,6 @@ Nas páginas de listagem é possível remover e editar o respectivo conteúdo, e
 - [x]  Cadastro, edição e remoção de módulos
 - [x]  Cadastro, edição e remoção de aulas
 - [x]  Autenticação utilizando JWT
+- [x]  Responsividade
+- [x]  Figma do projeto: [figma](https://www.figma.com/proto/29b7H0ya4V6uzOctqc6Uxt/Teste-Verzel?page-id=0%3A1&node-id=2%3A112&viewport=241%2C48%2C0.1&scaling=min-zoom)
+
