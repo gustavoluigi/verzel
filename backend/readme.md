@@ -60,7 +60,7 @@
 - #### Edição de módulos
 
 ```http
-  PUT /modules/:module_id
+  PATCH /modules/:module_id
 ```
 ##### Corpo da requisição
 
@@ -126,7 +126,7 @@
 - #### Edição de aulas
 
 ```http
-  PUT /modules/:module_id/classes
+  PATCH /modules/:module_id/classes
 ```
 
 ##### Corpo da requisição
@@ -143,7 +143,7 @@
 - #### Deleção de aulas
 
 ```http
-  POST /modules/:module_id/classes/:class_id
+  DELETE /modules/:module_id/classes/:class_id
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |

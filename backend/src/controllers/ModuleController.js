@@ -25,7 +25,7 @@ module.exports = {
     const modules = await Module.findByPk(module_id);
 
     if (!modules) {
-      return res.status(400).json('Módulo não encontrado.');
+      return res.status(404).json('Módulo não encontrado.');
     }
 
     return res.json(modules);
@@ -37,7 +37,11 @@ module.exports = {
     const moduleExists = await Module.findOne({ where: { name } });
 
     if (moduleExists) {
-      return res.status(409).json('Já existe um módulo com este nome, por favor, tente novamente usando um novo nome.');
+      return res
+        .status(409)
+        .json(
+          'Já existe um módulo com este nome, por favor, tente novamente usando um novo nome.',
+        );
     }
 
     const module = await Module.create({ name });
@@ -52,13 +56,17 @@ module.exports = {
     const module = await Module.findByPk(module_id);
 
     if (!module) {
-      return res.status(400).json('Módulo não encontrado.');
+      return res.status(404).json('Módulo não encontrado.');
     }
 
     const moduleExists = await Module.findOne({ where: { name } });
 
     if (moduleExists) {
-      return res.status(409).json('Já existe um módulo com este nome, por favor, tente novamente usando um novo nome.');
+      return res
+        .status(409)
+        .json(
+          'Já existe um módulo com este nome, por favor, tente novamente usando um novo nome.',
+        );
     }
 
     module.update(req.body);
@@ -72,7 +80,7 @@ module.exports = {
     const module = await Module.findByPk(module_id);
 
     if (!module) {
-      return res.status(400).json('Módulo não encontrado.');
+      return res.status(404).json('Módulo não encontrado.');
     }
 
     module.destroy();

@@ -24,6 +24,6 @@ function Modal({ children, isOpen, onClickClose }) {
 export default Modal;
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
+  isOpen: PropTypes.any.isRequired,
   children: PropTypes.node.isRequired,
 };

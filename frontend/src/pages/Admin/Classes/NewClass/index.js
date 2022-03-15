@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PageAdminTitle from '../../../../components/PageAdminTitle';

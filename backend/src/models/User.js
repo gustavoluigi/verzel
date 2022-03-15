@@ -3,18 +3,21 @@ const bcrypt = require('bcryptjs');
 
 class User extends Model {
   static init(sequelize) {
-    super.init({
-      name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: {
-        type: DataTypes.STRING,
-        set(value) {
-          this.setDataValue('password', bcrypt.hashSync(value, 8));
+    super.init(
+      {
+        name: DataTypes.STRING,
+        email: DataTypes.STRING,
+        password: {
+          type: DataTypes.STRING,
+          set(value) {
+            this.setDataValue('password', bcrypt.hashSync(value, 8));
+          },
         },
       },
-    }, {
-      sequelize,
-    });
+      {
+        sequelize,
+      },
+    );
   }
 }
 

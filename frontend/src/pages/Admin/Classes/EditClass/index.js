@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PageAdminTitle from '../../../../components/PageAdminTitle';
@@ -39,24 +38,28 @@ function EditClass() {
 
   function handleNameChange(event) {
     setName(event.target.value);
+
     if (!event.target.value) {
       setErrors((prevState) => [
         ...prevState,
-        { field: 'name', message: 'Nome é obrigatório' },
+        { name: 'Nome é obrigatório' },
       ]);
     } else {
-      setErrors((prevState) => prevState.filter((error) => error.field !== 'email'));
+      setErrors((prevState) => prevState.filter(
+        (error) => !error.name,
+      ));
     }
   }
 
   function getErrorMessagebyFieldName(fieldName) {
-    return errors.find((error) => error.field === fieldName)?.message;
+    const result = errors.find((error) => error[fieldName]);
+    return result ? result[fieldName] : '';
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await api.put(`/modules/${module}/classes/${id}`, {
+    await api.patch(`/modules/${module}/classes/${id}`, {
       name,
       id_module: module,
       date,
@@ -108,21 +111,6 @@ function EditClass() {
                     {item.name}
                   </option>
                 ))}
-              {/* {modules
-                && modules.map((item) => {
-                  if (module === item.name) {
-                    return (
-                      <option value={item.id} key={item.id} selected>
-                        {item.name}
-                      </option>
-                    );
-                  }
-                  return (
-                    <option value={item.id} key={item.id}>
-                      {item.name}
-                    </option>
-                  );
-                })} */}
             </Select>
           </FormGroup>
           <FormGroup

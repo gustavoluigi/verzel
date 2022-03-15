@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useContext, useState } from 'react';
 import Button from '../Button';
 import FormGroup from '../FormGroup';
@@ -15,33 +14,25 @@ function LoginForm() {
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
-
     setErrors((prevState) => prevState.filter(
-      (error) => error.field !== 'email',
+      (error) => !error.email,
     ));
-
     if (!event.target.value) {
       setErrors((prevState) => [
         ...prevState,
-        { field: 'email', message: 'E-mail é obrigatório' },
+        { email: 'E-mail é obrigatório' },
       ]);
-    } else if (event.target.value && !isEmailValid(event.target.value)) {
-      setErrors((prevState) => prevState.filter(
-        (error) => error.field !== 'email',
-      ));
+    } else if (!isEmailValid(event.target.value)) {
       setErrors((prevState) => [
         ...prevState,
-        { field: 'email', message: 'Digite um e-mail válido' },
+        { email: 'Digite um e-mail válido' },
       ]);
-    } else {
-      setErrors((prevState) => prevState.filter(
-        (error) => error.field !== 'email',
-      ));
     }
   }
 
   function getErrorMessagebyFieldName(fieldName) {
-    return errors.find((error) => error.field === fieldName)?.message;
+    const result = errors.find((error) => error[fieldName]);
+    return result ? result[fieldName] : '';
   }
 
   function handleSubmit(e) {
@@ -77,11 +68,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-// LoginForm.propTypes = {
-//   handleLogin: PropTypes.func,
-// };
-
-// LoginForm.defaultProps = {
-//   handleLogin: null,
-// };

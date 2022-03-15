@@ -18,56 +18,46 @@ function RegisterForm() {
   const [errorMessage, setErrorMessage] = useState('');
 
   function handleNameChange(event) {
-    console.log(errors);
-    setErrors((prevState) => prevState.filter(
-      (error) => error.field !== 'name',
-    ));
     setName(event.target.value);
+
     if (!event.target.value) {
       setErrors((prevState) => [
         ...prevState,
-        { field: 'name', message: 'Nome é obrigatório' },
+        { name: 'Nome é obrigatório' },
       ]);
     } else {
       setErrors((prevState) => prevState.filter(
-        (error) => error.field !== 'name',
+        (error) => !error.name,
       ));
     }
   }
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
-    setErrorMessage('');
-
     setErrors((prevState) => prevState.filter(
-      (error) => error.field !== 'email',
+      (error) => !error.email,
     ));
-
     if (!event.target.value) {
       setErrors((prevState) => [
         ...prevState,
-        { field: 'email', message: 'E-mail é obrigatório' },
+        { email: 'E-mail é obrigatório' },
       ]);
-    } else if (event.target.value && !isEmailValid(event.target.value)) {
-      setErrors((prevState) => prevState.filter(
-        (error) => error.field !== 'email',
-      ));
+    } else if (!isEmailValid(event.target.value)) {
       setErrors((prevState) => [
         ...prevState,
-        { field: 'email', message: 'Digite um e-mail válido' },
+        { email: 'Digite um e-mail válido' },
       ]);
     } else {
       setErrors((prevState) => prevState.filter(
-        (error) => error.field !== 'email',
+        (error) => !error.email,
       ));
     }
   }
 
   function getErrorMessagebyFieldName(fieldName) {
-    return errors.find((error) => error.field === fieldName)?.message;
+    const result = errors.find((error) => error[fieldName]);
+    return result ? result[fieldName] : '';
   }
-
-  // console.log(errors);
 
   async function handleSubmit(e) {
     setLoading(true);
@@ -76,12 +66,10 @@ function RegisterForm() {
       name,
       email,
       password,
-    }).then((res) => {
-      // console.log(res);
+    }).then(() => {
       setLoading(false);
       setRedirect(true);
     }).catch((err) => {
-      // console.log(err.response.data);
       setErrorMessage(err.response.data);
     });
   }
@@ -98,7 +86,6 @@ function RegisterForm() {
       <ErrorMessage>
         {errorMessage}
       </ErrorMessage>
-
       )}
       <Form onSubmit={handleSubmit}>
         <FormGroup label="Nome" id="name" error={getErrorMessagebyFieldName('name')}>

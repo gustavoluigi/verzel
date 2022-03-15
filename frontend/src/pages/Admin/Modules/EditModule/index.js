@@ -43,7 +43,7 @@ function EditModule() {
   async function handleSubmit(e) {
     e.preventDefault();
     // console.log('*** FormData ***', e.target.value);
-    await api.put(`/modules/${id}`, {
+    await api.patch(`/modules/${id}`, {
       name,
     }).then((res) => {
       setModule(res.data);

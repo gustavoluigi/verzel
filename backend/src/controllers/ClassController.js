@@ -36,7 +36,7 @@ module.exports = {
     });
 
     if (!classes) {
-      return res.status(400).json('Aula não encontrado.');
+      return res.status(404).json('Aula não encontrado.');
     }
 
     return res.json(classes);
@@ -59,11 +59,11 @@ module.exports = {
     });
 
     if (!module) {
-      return res.status(400).json('Módulo não encontrado');
+      return res.status(404).json('Módulo não encontrado');
     }
 
     if (!module.classes.length) {
-      return res.status(400).json('Nenhuma aula encontrada para este módulo.');
+      return res.status(404).json('Nenhuma aula encontrada para este módulo.');
     }
 
     return res.json(module);
@@ -85,7 +85,7 @@ module.exports = {
     const lesson = await Class.findByPk(class_id);
 
     if (!lesson) {
-      return res.status(400).json('Aula não encontrada.');
+      return res.status(404).json('Aula não encontrada.');
     }
 
     lesson.update(req.body);
@@ -99,7 +99,7 @@ module.exports = {
     const lesson = await Class.findByPk(class_id);
 
     if (!lesson) {
-      return res.status(400).json('Aula não encontrada.');
+      return res.status(404).json('Aula não encontrada.');
     }
 
     lesson.destroy();
