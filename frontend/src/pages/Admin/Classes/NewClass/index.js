@@ -52,12 +52,7 @@ function NewClass() {
   async function getModules() {
     setModuleList([]);
     await api.get('/modules').then((res) => {
-      res.data.forEach((element) => {
-        setModuleList((prevState) => [
-          ...prevState,
-          { id: element.id, name: element.name },
-        ]);
-      });
+      setModuleList(() => res.data.map((element) => ({ id: element.id, name: element.name })));
     });
   }
 

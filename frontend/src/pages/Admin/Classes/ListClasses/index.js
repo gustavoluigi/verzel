@@ -18,17 +18,12 @@ function ListClasses() {
   async function getClasses() {
     setClasses([]);
     await api.get('/classes').then((res) => {
-      res.data.forEach((element) => {
-        setClasses((prevState) => [
-          ...prevState,
-          {
-            id: element.id,
-            name: element.name,
-            module: element.module.name,
-            date: element.date,
-          },
-        ]);
-      });
+      setClasses(() => res.data.map((element) => ({
+        id: element.id,
+        name: element.name,
+        module: element.module.name,
+        date: element.date,
+      })));
     });
   }
 

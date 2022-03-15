@@ -19,12 +19,7 @@ function ListModules() {
   async function getModules() {
     setModules([]);
     await api.get('/modules').then((res) => {
-      res.data.forEach((element) => {
-        setModules((prevState) => [
-          ...prevState,
-          { id: element.id, name: element.name },
-        ]);
-      });
+      setModules(() => res.data.map((element) => ({ id: element.id, name: element.name })));
     });
   }
 

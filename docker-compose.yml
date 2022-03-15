@@ -32,6 +32,7 @@ services:
       - PGPASSWORD=verzeldb_pass
       - PGDATABASE=verzeldb_database
       - PGHOST=db
+      - APP_ENV=docker
     depends_on: 
       - db
     networks:

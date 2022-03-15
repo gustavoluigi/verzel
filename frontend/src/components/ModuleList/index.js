@@ -7,7 +7,6 @@ function ModuleList({ direction, list, func }) {
   return (
     <Container direction={direction}>
       {list && list.map((item, key) => (
-
         <ModuleCard key={key} item={item} func={func} />
       ))}
     </Container>

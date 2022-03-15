@@ -7,11 +7,14 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn && yarn sequelize db:migrate && yarn sequelize db:seed:all && nodemon src/server.js",
-    "start-dev": "nodemon src/server.js"
+    "seed": "yarn sequelize db:seed:all",
+    "restart-db": "yarn sequelize db:migrate:undo:all && yarn sequelize db:migrate && yarn sequelize db:seed:all",
+    "dev": "nodemon src/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",

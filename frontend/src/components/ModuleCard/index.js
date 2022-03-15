@@ -5,7 +5,7 @@ import { Container } from './styles';
 
 function ModuleCard({ item, func }) {
   return (
-    <Link to="/modulos" onClick={() => func(item.id)}>
+    <Link data-testid="module-card" to="/modulos" onClick={() => func(item.id)}>
       <Container>
         <ModuleCardIcon />
         <div className="content">
