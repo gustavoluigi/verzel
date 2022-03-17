@@ -12,11 +12,11 @@ const routes = express.Router();
 routes.post('/auth', AuthController.authenticate);
 routes.get('/modules', ModuleController.index);
 routes.get('/modules/:module_id/classes', ClassController.moduleClasses);
+routes.post('/users', UserController.store);
 
 routes.use(authMiddleware.authMiddleware);
 
 routes.get('/users', UserController.index);
-routes.post('/users', UserController.store);
 
 routes.post('/modules', ModuleController.store);
 routes.get('/modules/:module_id', ModuleController.show);
