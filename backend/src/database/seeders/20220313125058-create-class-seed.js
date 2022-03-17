@@ -10,7 +10,7 @@ module.exports = {
       return queryInterface.bulkInsert('classes', [
         {
           name: 'Módulo 01',
-          date: '10/03/2022',
+          date: '2022-03-10',
           id_module: 1,
           created_at: new Date(),
           updated_at: new Date(),
